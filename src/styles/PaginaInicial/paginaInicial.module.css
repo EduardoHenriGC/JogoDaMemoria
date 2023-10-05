@@ -1,0 +1,88 @@
+.container{
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    flex-direction: column;
+    
+    
+}
+
+         
+.container button {
+    background-image: linear-gradient(to right, #3a6186 0%, #89253e  51%, #3a6186  100%);
+    margin: 10px;
+    padding: 15px 45px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;            
+    box-shadow: 0 0 3px #eee;
+    border-radius: 10px;
+    display: block;
+    cursor: pointer;
+  }
+
+  .container button:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+  }
+ 
+
+.formName{
+    
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-transform: uppercase;
+    width: 200px;
+
+
+}
+.formName label{
+
+    text-align: center;
+    font-weight: 600;
+    color: #fff;
+}
+
+.formName input{
+
+    padding: 10px;
+    border-radius: 0.25rem;
+}
+
+.formTheme{
+
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    
+    
+}
+
+.formTheme label{
+    text-align: center;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 10px;
+    
+}
+
+.formTheme select{
+    width: 200px;
+    height: 33px;
+    font-weight: 600;
+    
+}
+.formTheme option{
+
+    
+    text-align: center;
+    
+    
+}

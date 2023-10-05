@@ -1,0 +1,82 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* Cria 4 colunas de largura igual */
+    grid-gap: 10px; /* Espaçamento entre as cartas */
+    justify-content: center; /* Centraliza as cartas horizontalmente */
+    width: 60%;
+    margin: 0 auto;
+    margin-top: 40px;
+  }
+  .container h1{
+    margin-top: 40px;
+    text-align: center;
+    color: #fff;
+
+
+  }
+
+  .endgame{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+
+           
+  .endgame a {
+    background-image: linear-gradient(to right, #000000 0%, #434343  51%, #000000  100%);
+    margin: 10px;
+    padding: 15px 45px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;            
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+    display: block;
+  }
+
+  .endgame a:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+  }
+ 
+
+
+  @media(max-width:1000px){
+
+    .grid{
+      width: 90%;
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+
+  @media(max-width:850px){
+
+    .grid{
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  
+  @media(max-width:650px){
+    
+
+    .grid{
+
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media(max-width:500px){
+
+    .grid{
+      
+    
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
