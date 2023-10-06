@@ -14,14 +14,12 @@ export const JogoDaMemoriaProvider = ({ children }) => {
   const [gameOver, setGameOver] = useState(false); // Sinaliza o fim do jogo
   const [finalTime, setFinalTime] = useState(0); // Tempo final do jogo
   const [gameStarted, setGameStarted] = useState(false);
-  const [imagesLoaded, setImagesLoaded] = useState(false);
-
   
 
   // Função para criar cartas embaralhadas com base no tema atual
   const createShuffledCards = () => {
     const themeCharacters = getThemeCharacters(currentTheme);
-    const shuffledCharacters = themeCharacters.sort(() => Math.random() - 0.5).slice(0, 2);
+    const shuffledCharacters = themeCharacters.sort(() => Math.random() - 0.5).slice(0, 9);
     const duplicateCharacters = [...shuffledCharacters, ...shuffledCharacters];
   
     return duplicateCharacters.sort(() => Math.random() - 0.5).map((character, index) => {
@@ -34,21 +32,7 @@ export const JogoDaMemoriaProvider = ({ children }) => {
     resetGame();
   }, [currentTheme]);
 
-  useEffect(() => {
-    const themeCharacters = getThemeCharacters(currentTheme);
-    const imagePromises = themeCharacters.map((character) => {
-      return new Promise((resolve) => {
-        const image = new Image();
-        image.src = character.imageSrc; // Substitua 'imageSrc' pelo caminho da imagem do personagem
-        image.onload = () => resolve();
-      });
-    });
-  
-    Promise.all(imagePromises).then(() => {
-      setImagesLoaded(true);
-    });
-  }, [currentTheme, gameStarted]);
-  
+ 
 
   // Efeito para verificar se todas as cartas estão combinadas e definir o fim do jogo
   useEffect(() => {
@@ -134,11 +118,6 @@ export const JogoDaMemoriaProvider = ({ children }) => {
       setFinalTime(0);
       
     };
-  
-    if (!imagesLoaded) {
-      return null; // Renderizar nulo enquanto as imagens estão sendo carregadas
-    }
-   
   // Objeto de contexto que será fornecido aos componentes filhos
   const contextValue = {
     cards,
