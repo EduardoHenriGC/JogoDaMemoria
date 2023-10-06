@@ -4,7 +4,7 @@ import styles from "@/styles/PaginaInicial/paginaInicial.module.css";
 import Link from "next/link";
 
 export default function PaginaInicial() {
-  const { setPlayer, mudarTema,player,setCurrentTheme,currentTheme } = useJogoDaMemoria();
+  const { setPlayer, mudarTema,player,setCurrentTheme,currentTheme,setGameStarted,resetGame } = useJogoDaMemoria();
   
   
 return (
@@ -38,14 +38,18 @@ return (
       
 
       <Link href="/jogodamemoria">
-        <button
-          className={styles.btn}
-          onClick={() => mudarTema(currentTheme)}
-          disabled={!currentTheme || !player}
-        >
-          Iniciar jogo
-        </button>
-      </Link>
+  <button
+    className={styles.btn}
+    onClick={() => {
+      resetGame();
+      setGameStarted(true); // Define gameStarted como true ao iniciar o jogo
+    }}
+    disabled={!currentTheme || !player}
+  >
+    Iniciar jogo
+  </button>
+</Link>
+
     </div>
   );
 }
