@@ -1,7 +1,7 @@
 import {JogoDaMemoriaProvider } from "./JogoDaMemoriaContext";
 
 
-export const AppProvider = ({children,session}) => {
+export const AppProvider = ({children}) => {
 
 
 

@@ -1,54 +1,22 @@
 
 import { useJogoDaMemoria } from "@/context/JogoDaMemoriaContext";
 import styles from "@/styles/PaginaInicial/paginaInicial.module.css";
-import Link from "next/link";
+import DropDownTheme from "../DropdownTheme";
+import InputName from "../InputName";
+import ButtonStart from "../ButtonStart/ButtonStart";
 
 export default function PaginaInicial() {
-  const { setPlayer, mudarTema,player,setCurrentTheme,currentTheme,setGameStarted,resetGame } = useJogoDaMemoria();
+  const { setPlayer,player,setCurrentTheme,currentTheme,setGameStarted,resetGame } = useJogoDaMemoria();
   
   
 return (
     <div className={styles.container}>
-      <div className={styles.formName}>
-        <label>Digite seu nick</label>
-        <input
-          type="text"
-          value={player}
-          onChange={(e) => setPlayer(e.target.value)}
-        />
-      </div>
 
-      <div className={styles.formTheme}>
-        <label>Escolha o tema</label>
-        <select
-          value={currentTheme}
-          onChange={(e) => setCurrentTheme(e.target.value)}
-        >
-          <option value="">Selecione um tema</option>
-          <option value="bleach">Bleach</option>
-          <option value="onepiece">One Piece</option>
-          <option value="jujutsu">Jujutsu Kaisen</option>
-          <option value="attack on titan">Attack on Titan</option>
-          <option value="naruto">Naruto</option>
-          <option value="mix">Mix</option>
-          <option value="all">All</option>
-        </select>
-      </div>
+      <span className={styles.span} data-text="Jogo da Memoria">Jogo da Memoria</span>
 
-      
-
-      <Link href="/jogodamemoria">
-  <button
-    className={styles.btn}
-    onClick={() => {
-      resetGame();
-      setGameStarted(true); // Define gameStarted como true ao iniciar o jogo
-    }}
-    disabled={!currentTheme || !player}
-  >
-    Iniciar jogo
-  </button>
-</Link>
+     <InputName setPlayer={setPlayer} player={player}/>
+     <DropDownTheme setCurrentTheme={setCurrentTheme} currentTheme={currentTheme}/>
+     <ButtonStart setGameStarted={setGameStarted} resetGame={resetGame} currentTheme={currentTheme} player={player}/>
 
     </div>
   );

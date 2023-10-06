@@ -1,0 +1,22 @@
+.formName{
+    
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-transform: uppercase;
+    width: 200px;
+
+
+}
+.formName label{
+
+    text-align: center;
+    font-weight: 600;
+    color: #fff;
+}
+
+.formName input{
+
+    padding: 10px;
+    border-radius: 0.25rem;
+}

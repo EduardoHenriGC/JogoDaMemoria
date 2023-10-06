@@ -9,12 +9,7 @@ const Card = ({ character,currentTheme, isRevealed, isMatched, onClick }) => {
     setFlipped(isRevealed);
   }, [isRevealed]);
 
-  const handleClick = () => {
-    if (!flipped) {
-      setFlipped(true);
-      onClick();
-    }
-  };
+  
 
   const getImagePath = () => {
     if (isMatched) {
@@ -38,7 +33,7 @@ const Card = ({ character,currentTheme, isRevealed, isMatched, onClick }) => {
   return (
    
      
-    <div className={`${styles.card} ${flipped ? styles.revealcard : ''}`} onClick={handleClick}>
+    <div className={`${styles.card} ${flipped ? styles.revealcard : ''}`} onClick={onClick}>
       <img src={getImagePath()} alt={character} />
      
     </div>
@@ -47,3 +42,5 @@ const Card = ({ character,currentTheme, isRevealed, isMatched, onClick }) => {
 }
 
 export default Card;
+
+

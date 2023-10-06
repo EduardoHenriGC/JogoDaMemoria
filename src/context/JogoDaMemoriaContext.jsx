@@ -14,12 +14,14 @@ export const JogoDaMemoriaProvider = ({ children }) => {
   const [gameOver, setGameOver] = useState(false); // Sinaliza o fim do jogo
   const [finalTime, setFinalTime] = useState(0); // Tempo final do jogo
   const [gameStarted, setGameStarted] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+
+  
 
   // Função para criar cartas embaralhadas com base no tema atual
   const createShuffledCards = () => {
     const themeCharacters = getThemeCharacters(currentTheme);
-    const shuffledCharacters = themeCharacters.sort(() => Math.random() - 0.5).slice(0, 9);
-  
+    const shuffledCharacters = themeCharacters.sort(() => Math.random() - 0.5).slice(0, 2);
     const duplicateCharacters = [...shuffledCharacters, ...shuffledCharacters];
   
     return duplicateCharacters.sort(() => Math.random() - 0.5).map((character, index) => {
@@ -32,9 +34,21 @@ export const JogoDaMemoriaProvider = ({ children }) => {
     resetGame();
   }, [currentTheme]);
 
-  function mudarTema(tema) {
-    setCurrentTheme(tema);
-  }
+  useEffect(() => {
+    const themeCharacters = getThemeCharacters(currentTheme);
+    const imagePromises = themeCharacters.map((character) => {
+      return new Promise((resolve) => {
+        const image = new Image();
+        image.src = character.imageSrc; // Substitua 'imageSrc' pelo caminho da imagem do personagem
+        image.onload = () => resolve();
+      });
+    });
+  
+    Promise.all(imagePromises).then(() => {
+      setImagesLoaded(true);
+    });
+  }, [currentTheme, gameStarted]);
+  
 
   // Efeito para verificar se todas as cartas estão combinadas e definir o fim do jogo
   useEffect(() => {
@@ -74,6 +88,7 @@ export const JogoDaMemoriaProvider = ({ children }) => {
 
     if (!cards[index].isRevealed && flippedCards.length < 2) {
       setCards((prevCards) => {
+        console.log("click",flippedCards.length)
         const newCards = [...prevCards];
         newCards[index].isRevealed = true;
         return newCards;
@@ -88,6 +103,7 @@ export const JogoDaMemoriaProvider = ({ children }) => {
           const newCards = [...prevCards];
           newCards[firstIndex].isMatched = true;
           newCards[index].isMatched = true;
+          console.log("match",cards[firstIndex].character, cards[index].character)
           return newCards;
         });
         resetBoard();
@@ -98,6 +114,7 @@ export const JogoDaMemoriaProvider = ({ children }) => {
             const newCards = [...prevCards];
             newCards[firstIndex].isRevealed = false;
             newCards[index].isRevealed = false;
+            console.log("not match",cards[firstIndex].character, cards[index].character)
             return newCards;
           });
           resetBoard();
@@ -117,12 +134,17 @@ export const JogoDaMemoriaProvider = ({ children }) => {
       setFinalTime(0);
       
     };
+  
+    if (!imagesLoaded) {
+      return null; // Renderizar nulo enquanto as imagens estão sendo carregadas
+    }
+   
   // Objeto de contexto que será fornecido aos componentes filhos
   const contextValue = {
     cards,
     player,
     setPlayer,
-    mudarTema,
+    
     currentTheme,
     setCurrentTheme,
     timer,
