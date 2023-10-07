@@ -5,7 +5,7 @@ import { useJogoDaMemoria } from '@/context/JogoDaMemoriaContext';
 import GameOver from '../GameOver';
 
 const Game = () => {
-  const { resetGame, cards, timer, player, handleCardClick, gameOver, finalTime, currentTheme } = useJogoDaMemoria();
+  const { resetGame, cards, timer, player, handleCardClick, gameOver, finalTime, currentTheme,difficulty } = useJogoDaMemoria();
   
 
   return (
@@ -18,10 +18,11 @@ const Game = () => {
          <p>Jogador: <span>{player}</span></p>
           <p>Tempo: <span>{timer} segundos</span></p>
          </div>
-          <div className={styles.grid}>
+          <div className={difficulty != 16 ? styles.grid : styles.gridHard}>
             {cards.map((card, index) => (
               <Card
                 key={index}
+                difficulty={difficulty}
                 currentTheme={currentTheme}
                 character={card.character}
                 isRevealed={card.isRevealed}

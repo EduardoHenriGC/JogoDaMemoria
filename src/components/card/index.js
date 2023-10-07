@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from "@/styles/card/card.module.css";
 
-const Card = ({ character,currentTheme, isRevealed, isMatched, onClick }) => {
+const Card = ({ character,currentTheme, isRevealed, isMatched, onClick,difficulty }) => {
   const [flipped, setFlipped] = useState(false);
   
 
@@ -33,7 +33,7 @@ const Card = ({ character,currentTheme, isRevealed, isMatched, onClick }) => {
   return (
    
      
-    <div className={`${styles.card} ${flipped ? styles.revealcard : ''}`} onClick={onClick}>
+    <div className={`${difficulty !=16 ? styles.card : styles.cardHard} ${flipped ? styles.revealcard : ''}`} onClick={onClick}>
       <img src={getImagePath()} alt={character} />
      
     </div>

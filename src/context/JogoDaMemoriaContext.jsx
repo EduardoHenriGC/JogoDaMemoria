@@ -14,12 +14,13 @@ export const JogoDaMemoriaProvider = ({ children }) => {
   const [gameOver, setGameOver] = useState(false); // Sinaliza o fim do jogo
   const [finalTime, setFinalTime] = useState(0); // Tempo final do jogo
   const [gameStarted, setGameStarted] = useState(false);
+  const [difficulty, setDifficulty] = useState("");
   
 
   // Função para criar cartas embaralhadas com base no tema atual
   const createShuffledCards = () => {
     const themeCharacters = getThemeCharacters(currentTheme);
-    const shuffledCharacters = themeCharacters.sort(() => Math.random() - 0.5).slice(0, 9);
+    const shuffledCharacters = themeCharacters.sort(() => Math.random() - 0.5).slice(0, difficulty);
     const duplicateCharacters = [...shuffledCharacters, ...shuffledCharacters];
   
     return duplicateCharacters.sort(() => Math.random() - 0.5).map((character, index) => {
@@ -30,11 +31,14 @@ export const JogoDaMemoriaProvider = ({ children }) => {
 // Efeito para reiniciar o jogo quando o tema é alterado
   useEffect(() => {
     resetGame();
+    setDifficulty(6);
   }, [currentTheme]);
 
  
 
-  // Efeito para verificar se todas as cartas estão combinadas e definir o fim do jogo
+  
+
+// Efeito para verificar se todas as cartas estão combinadas e definir o fim do jogo
   useEffect(() => {
     if (gameStarted && cards.every((card) => card.isMatched)) {
       setFinalTime(timer - 3);
@@ -131,7 +135,9 @@ export const JogoDaMemoriaProvider = ({ children }) => {
     resetGame,
     gameOver,
     finalTime,
-    setGameStarted
+    setGameStarted,
+    setDifficulty,
+    difficulty
    
   };
 

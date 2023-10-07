@@ -1,21 +1,23 @@
 import Link from "next/link";
-import styles from "@/styles/ButtonStart/ButtonStart.module.css"
+import styles from "@/styles/ButtonStart/ButtonStart.module.css";
 
+export default function ButtonStart({ resetGame, setGameStarted, currentTheme, player, difficulty }) {
+  const isDisabled = !currentTheme || !player || difficulty ==0;
 
-export default function ButtonStart({resetGame,setGameStarted,currentTheme,player}){
-
-    return (
-        <Link href="/jogodamemoria">
-        <button
-          className={styles.button}
-          onClick={() => {
+  return (
+    <Link href="/jogodamemoria">
+      <button
+        className={styles.button}
+        onClick={() => {
+          if (!isDisabled) {
             resetGame();
-            setGameStarted(true); 
-          }}
-          disabled={!currentTheme || !player}
-        >
-          Iniciar jogo
-        </button>
-      </Link>
-    )
-        }
+            setGameStarted(true);
+          }
+        }}
+        disabled={isDisabled}
+      >
+        Iniciar jogo
+      </button>
+    </Link>
+  );
+}

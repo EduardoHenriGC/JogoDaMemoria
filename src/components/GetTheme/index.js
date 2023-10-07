@@ -11,7 +11,16 @@ export const getThemeCharacters = (theme) => {
       'hitsugaya',
       'soifon',
       'urahara',
-      'gin'
+      'gin',
+      'yhwach',
+      'hirako',
+      'inoue',
+      'abarai',
+      'ishida',
+      'rangiku',
+      'Shunsui'
+
+
     ],
     jujutsu: [
       'nanami',
@@ -22,7 +31,8 @@ export const getThemeCharacters = (theme) => {
       'megumi',
       'yuta',
       'hajime',
-      'toji'
+      'toji',
+      'meimei'
     ],
     onepiece: [
       'ace',
@@ -61,7 +71,11 @@ export const getThemeCharacters = (theme) => {
       'fujinuma',
       'l',
       'mikey',
-      'genos'
+      'genos',
+      'killua',
+      'kai',
+      'mori',
+      'elric'
     ],
     naruto: [
       'naruto',
