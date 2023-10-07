@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styles from "@/styles/card/card.module.css";
 
-const Card = ({ character,currentTheme, isRevealed, isMatched, onClick,difficulty }) => {
+const Card = ({ character, currentTheme, isRevealed, isMatched, onClick, difficulty }) => {
   const [flipped, setFlipped] = useState(false);
-  
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     setFlipped(isRevealed);
   }, [isRevealed]);
-
-  
 
   const getImagePath = () => {
     if (isMatched) {
@@ -26,21 +24,23 @@ const Card = ({ character,currentTheme, isRevealed, isMatched, onClick,difficult
         currentTheme === "mix" ? "backmix" :
         "backonepiece"
       }.jpg`;
-      
     }
   };
 
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
+
   return (
-   
-     
-    <div className={`${difficulty !=16 ? styles.card : styles.cardHard} ${flipped ? styles.revealcard : ''}`} onClick={onClick}>
-      <img src={getImagePath()} alt={character} />
-     
+    <div className={`${difficulty !== 16 ? styles.card : styles.cardHard} ${flipped ? styles.revealcard : ''}`} onClick={onClick}>
+      <img
+        src={getImagePath()}
+        alt={character}
+        style={{ display: imageLoaded ? 'block' : 'none' }}
+        onLoad={handleImageLoad}
+      />
     </div>
-   
   );
 }
 
 export default Card;
-
-
