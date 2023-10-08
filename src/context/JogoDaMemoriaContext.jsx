@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { getThemeCharacters } from '@/components/GetTheme/index';
+
 // Cria um contexto para o jogo da memória
 const JogoDaMemoriaContext = createContext();
 
@@ -23,7 +24,6 @@ export const JogoDaMemoriaProvider = ({ children }) => {
       const timeout = setTimeout(() => {
         setShowButtons(true);
       }, 3000);
-
       return () => clearTimeout(timeout); // Limpa o timeout se o componente for desmontado
     } else {
       // Se o jogo não estiver no estado de game over, certifique-se de ocultar os botões
@@ -50,7 +50,6 @@ export const JogoDaMemoriaProvider = ({ children }) => {
   // Efeito para atualizar o cronômetro
   useEffect(() => {
     let interval;
-
     if (!gameOver) {
       interval = setInterval(() => {
         setTimer((prevTimer) => prevTimer + 1);
@@ -67,7 +66,6 @@ export const JogoDaMemoriaProvider = ({ children }) => {
     const themeCharacters = getThemeCharacters(currentTheme);
     const shuffledCharacters = themeCharacters.sort(() => Math.random() - 0.5).slice(0, difficulty);
     const duplicateCharacters = [...shuffledCharacters, ...shuffledCharacters];
-
     return duplicateCharacters.sort(() => Math.random() - 0.5).map((character, index) => {
       return { character, isRevealed: false, isMatched: false, index };
     });
@@ -85,7 +83,6 @@ export const JogoDaMemoriaProvider = ({ children }) => {
 
     if (!cards[index].isRevealed && flippedCards.length < 2) {
       setCards((prevCards) => {
-
         const newCards = [...prevCards];
         newCards[index].isRevealed = true;
         return newCards;
@@ -95,12 +92,12 @@ export const JogoDaMemoriaProvider = ({ children }) => {
 
     if (flippedCards.length === 1) {
       const [firstIndex] = flippedCards;
+      if (cards[index] === cards[firstIndex]) return
       if (cards[firstIndex].character === cards[index].character) {
         setCards((prevCards) => {
           const newCards = [...prevCards];
           newCards[firstIndex].isMatched = true;
           newCards[index].isMatched = true;
-
           return newCards;
         });
         resetBoard();
@@ -111,7 +108,6 @@ export const JogoDaMemoriaProvider = ({ children }) => {
             const newCards = [...prevCards];
             newCards[firstIndex].isRevealed = false;
             newCards[index].isRevealed = false;
-
             return newCards;
           });
           resetBoard();
@@ -135,7 +131,6 @@ export const JogoDaMemoriaProvider = ({ children }) => {
     cards,
     player,
     setPlayer,
-
     currentTheme,
     setCurrentTheme,
     timer,
