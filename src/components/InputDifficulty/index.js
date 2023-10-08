@@ -5,14 +5,14 @@ import { useJogoDaMemoria } from "@/context/JogoDaMemoriaContext";
 
 export default function InputDifficulty() {
 
-  const {setDifficulty, difficulty, currentTheme} =useJogoDaMemoria();
-  const HideDifficultOption = ["jujutsu","attack on titan"].includes(currentTheme);
-  
+  const { setDifficulty, difficulty, currentTheme } = useJogoDaMemoria();
+  const HideDifficultOption = ["jujutsu", "attack on titan"].includes(currentTheme);
+
   const handleDifficultyChange = (event) => {
     setDifficulty(event.target.value);
   };
 
- return (
+  return (
     <div className={styles.containerDifficulty}>
       <DifficultyBlock
         value="6"

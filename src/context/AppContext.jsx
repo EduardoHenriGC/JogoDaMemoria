@@ -1,22 +1,11 @@
-import {JogoDaMemoriaProvider } from "./JogoDaMemoriaContext";
+import { JogoDaMemoriaProvider } from "./JogoDaMemoriaContext";
 
 
-export const AppProvider = ({children}) => {
+export const AppProvider = ({ children }) => {
 
-
-
-    return (
-    
-      <JogoDaMemoriaProvider>
-      
-    
-        
-  {children}
-
-
-
-  </JogoDaMemoriaProvider>
-    
-    
-    )
+  return (
+    <JogoDaMemoriaProvider>
+      {children}
+    </JogoDaMemoriaProvider>
+  )
 }

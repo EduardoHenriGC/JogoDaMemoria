@@ -6,20 +6,13 @@ import InputDifficulty from "../InputDifficulty";
 
 export default function PaginaInicial() {
 
-  
-  
- 
-  
-return (
+  return (
     <div className={styles.container}>
-
       <span className={styles.span} data-text="Jogo da Memoria">Jogo da Memoria</span>
-
-     <InputName/>
-     <DropDownTheme/>
-     <InputDifficulty/>
-     <ButtonStart/>
-    
+      <InputName />
+      <DropDownTheme />
+      <InputDifficulty />
+      <ButtonStart />
     </div>
   );
 }

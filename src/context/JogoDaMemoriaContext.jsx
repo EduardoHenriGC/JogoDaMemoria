@@ -7,7 +7,7 @@ export const JogoDaMemoriaProvider = ({ children }) => {
   // Estados do jogo
   const [currentTheme, setCurrentTheme] = useState(''); // Defina um tema inicial
   const [cards, setCards] = useState([]); // Cartas no jogo
-  const [player, setPlayer] = useState("");
+  const [player, setPlayer] = useState(""); //estado para gerenciar o nome do jogador
   const [flippedCards, setFlippedCards] = useState([]); // Cartas viradas
   const [timer, setTimer] = useState(0); // Contagem de tempo
   const [lockBoard, setLockBoard] = useState(false); // Bloqueio de cliques nas cartas
@@ -17,9 +17,7 @@ export const JogoDaMemoriaProvider = ({ children }) => {
   const [difficulty, setDifficulty] = useState("");
   const [showButtons, setShowButtons] = useState(false); // Estado para controlar a exibição dos botões
 
-
-
- useEffect(() => {
+  useEffect(() => {
     if (gameOver) {
       // Quando gameOver for verdadeiro, aguarde 3 segundos antes de mostrar os botões
       const timeout = setTimeout(() => {
@@ -32,15 +30,14 @@ export const JogoDaMemoriaProvider = ({ children }) => {
       setShowButtons(false);
     }
   }, [gameOver]);
-  
-// Efeito para reiniciar o jogo quando o tema é alterado
+
+  // Efeito para reiniciar o jogo quando o tema é alterado
   useEffect(() => {
     resetGame();
     setDifficulty(0);
   }, [currentTheme]);
 
- 
-// Efeito para verificar se todas as cartas estão combinadas e definir o fim do jogo
+  // Efeito para verificar se todas as cartas estão combinadas e definir o fim do jogo
   useEffect(() => {
     if (gameStarted && cards.every((card) => card.isMatched)) {
       setFinalTime(timer - 3);
@@ -49,7 +46,7 @@ export const JogoDaMemoriaProvider = ({ children }) => {
       }, 3000); // 3000 milissegundos = 3 segundos
     }
   }, [cards, timer, gameStarted]);
-  
+
   // Efeito para atualizar o cronômetro
   useEffect(() => {
     let interval;
@@ -65,13 +62,12 @@ export const JogoDaMemoriaProvider = ({ children }) => {
     };
   }, [gameOver]);
 
-
-   // Função para criar cartas embaralhadas com base no tema atual
-   const createShuffledCards = () => {
+  // Função para criar cartas embaralhadas com base no tema atual
+  const createShuffledCards = () => {
     const themeCharacters = getThemeCharacters(currentTheme);
     const shuffledCharacters = themeCharacters.sort(() => Math.random() - 0.5).slice(0, difficulty);
     const duplicateCharacters = [...shuffledCharacters, ...shuffledCharacters];
-  
+
     return duplicateCharacters.sort(() => Math.random() - 0.5).map((character, index) => {
       return { character, isRevealed: false, isMatched: false, index };
     });
@@ -82,15 +78,14 @@ export const JogoDaMemoriaProvider = ({ children }) => {
     setFlippedCards([]);
     setLockBoard(false);
   };
-  
- 
+
   // Função para lidar com o clique em uma carta
   const handleCardClick = (index) => {
     if (lockBoard) return;
 
     if (!cards[index].isRevealed && flippedCards.length < 2) {
       setCards((prevCards) => {
-        
+
         const newCards = [...prevCards];
         newCards[index].isRevealed = true;
         return newCards;
@@ -105,7 +100,7 @@ export const JogoDaMemoriaProvider = ({ children }) => {
           const newCards = [...prevCards];
           newCards[firstIndex].isMatched = true;
           newCards[index].isMatched = true;
-          
+
           return newCards;
         });
         resetBoard();
@@ -116,7 +111,7 @@ export const JogoDaMemoriaProvider = ({ children }) => {
             const newCards = [...prevCards];
             newCards[firstIndex].isRevealed = false;
             newCards[index].isRevealed = false;
-            
+
             return newCards;
           });
           resetBoard();
@@ -124,24 +119,23 @@ export const JogoDaMemoriaProvider = ({ children }) => {
       }
     }
   }
- 
 
-    // Função para reiniciar o jogo
-    const resetGame = () => {
-      setCards(createShuffledCards());
-      setFlippedCards([]);
-      setTimer(0);
-      setLockBoard(false);
-      setGameOver(false);
-      setFinalTime(0);
-      
-    };
+  // Função para reiniciar o jogo
+  const resetGame = () => {
+    setCards(createShuffledCards());
+    setFlippedCards([]);
+    setTimer(0);
+    setLockBoard(false);
+    setGameOver(false);
+    setFinalTime(0);
+
+  };
   // Objeto de contexto que será fornecido aos componentes filhos
   const contextValue = {
     cards,
     player,
     setPlayer,
-    
+
     currentTheme,
     setCurrentTheme,
     timer,
@@ -153,7 +147,7 @@ export const JogoDaMemoriaProvider = ({ children }) => {
     setDifficulty,
     difficulty,
     showButtons
-   
+
   };
 
   // Fornece o contexto aos componentes filhos

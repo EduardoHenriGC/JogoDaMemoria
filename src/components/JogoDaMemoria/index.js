@@ -5,23 +5,22 @@ import GameOver from '../GameOver';
 import InfoGame from '../InfoGame';
 import Cards from '../Cards';
 
-const Game = () => {
-  
-  const {gameOver} = useJogoDaMemoria();
-  
+export default function Game() {
+
+  const { gameOver } = useJogoDaMemoria();
 
   return (
     <div>
-      {gameOver ? <GameOver/>
-       : (
-        <div className={styles.container}>
-          <InfoGame/>
-          <Cards/>
-       
-        </div>
-      )}
+      {gameOver ? <GameOver />
+        : (
+          <div className={styles.container}>
+            <InfoGame />
+            <Cards />
+
+          </div>
+        )}
     </div>
   );
 }
 
-export default Game;
+
