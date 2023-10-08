@@ -43,7 +43,14 @@ export const getThemeCharacters = (theme) => {
       'barbabranca',
       'nico',
       'nami',
-      'kizaru'
+      'kizaru',
+      'teach',
+      'kaido',
+      'akainu',
+      'rayleigh',
+      'kuzan',
+      'ussop',
+      'vivi'
     ],
     'attack on titan': [
       'eren',
@@ -75,7 +82,8 @@ export const getThemeCharacters = (theme) => {
       'killua',
       'kai',
       'mori',
-      'elric'
+      'elric',
+      'tomioka'
     ],
     naruto: [
       'naruto',
@@ -93,7 +101,8 @@ export const getThemeCharacters = (theme) => {
       'hashirama',
       'tsunade',
       'itachi',
-      'minato'
+      'minato',
+      'gaara'
     ]
   };
 

@@ -1,6 +1,9 @@
+import { useJogoDaMemoria } from "@/context/JogoDaMemoriaContext"
 import styles from "@/styles/InputName/InputName.module.css"
 
-export default function InputName({player, setPlayer}){
+export default function InputName(){
+
+  const {player, setPlayer} =useJogoDaMemoria();
 
     return (
 
@@ -10,6 +13,7 @@ export default function InputName({player, setPlayer}){
           type="text"
           value={player}
           onChange={(e) => setPlayer(e.target.value)}
+          maxLength="14"
         />
       </div>
     )

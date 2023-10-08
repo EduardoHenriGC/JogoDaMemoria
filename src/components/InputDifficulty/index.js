@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import styles from "@/styles/InputDifficulty/InputDifficulty.module.css";
 import DifficultyBlock from "@/components/DifficultyBlock/index";
+import { useJogoDaMemoria } from "@/context/JogoDaMemoriaContext";
 
-export default function InputDifficulty({ setDifficulty, difficulty, currentTheme }) {
-  
-  const shouldHideDifficultOption = ["bleach", "mix", "all"].includes(currentTheme);
+export default function InputDifficulty() {
+
+  const {setDifficulty, difficulty, currentTheme} =useJogoDaMemoria();
+  const HideDifficultOption = ["jujutsu","attack on titan"].includes(currentTheme);
   
   const handleDifficultyChange = (event) => {
     setDifficulty(event.target.value);
@@ -26,7 +28,7 @@ export default function InputDifficulty({ setDifficulty, difficulty, currentThem
         label="Médio"
       />
 
-      {shouldHideDifficultOption && (
+      {!HideDifficultOption && (
         <DifficultyBlock
           value="16"
           checked={difficulty === "16"}

@@ -1,24 +1,11 @@
 import Link from "next/link"
 import styles from "@/styles/GameOver/GameOver.module.css"
-import { useState,useEffect } from "react";
+import { useJogoDaMemoria } from "@/context/JogoDaMemoriaContext";
 
-export default function GameOver({gameOver,finalTime,resetGame}){
+export default function GameOver(){
 
-  const [showButtons, setShowButtons] = useState(false); // Estado para controlar a exibição dos botões
+  const {finalTime,resetGame,showButtons} = useJogoDaMemoria();
 
-  useEffect(() => {
-    if (gameOver) {
-      // Quando gameOver for verdadeiro, aguarde 3 segundos antes de mostrar os botões
-      const timeout = setTimeout(() => {
-        setShowButtons(true);
-      }, 3000);
-
-      return () => clearTimeout(timeout); // Limpa o timeout se o componente for desmontado
-    } else {
-      // Se o jogo não estiver no estado de game over, certifique-se de ocultar os botões
-      setShowButtons(false);
-    }
-  }, [gameOver]);
     return (   
     
     <div className={styles.endgame}>
@@ -26,7 +13,7 @@ export default function GameOver({gameOver,finalTime,resetGame}){
         <p>Tempo: <span>{finalTime} segundos</span></p>
         {showButtons && ( // Renderiza os botões apenas quando showButtons for verdadeiro
           <>
-            <Link href="/" onClick={() => resetGame()}>Voltar</Link>
+            <Link href="/">Voltar</Link>
             <button onClick={() => resetGame()}>Jogar novamente</button>
           </>
         )}

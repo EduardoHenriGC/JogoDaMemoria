@@ -15,29 +15,31 @@ export const JogoDaMemoriaProvider = ({ children }) => {
   const [finalTime, setFinalTime] = useState(0); // Tempo final do jogo
   const [gameStarted, setGameStarted] = useState(false);
   const [difficulty, setDifficulty] = useState("");
-  
+  const [showButtons, setShowButtons] = useState(false); // Estado para controlar a exibição dos botões
 
-  // Função para criar cartas embaralhadas com base no tema atual
-  const createShuffledCards = () => {
-    const themeCharacters = getThemeCharacters(currentTheme);
-    const shuffledCharacters = themeCharacters.sort(() => Math.random() - 0.5).slice(0, difficulty);
-    const duplicateCharacters = [...shuffledCharacters, ...shuffledCharacters];
-  
-    return duplicateCharacters.sort(() => Math.random() - 0.5).map((character, index) => {
-      return { character, isRevealed: false, isMatched: false, index };
-    });
-  };
+
+
+ useEffect(() => {
+    if (gameOver) {
+      // Quando gameOver for verdadeiro, aguarde 3 segundos antes de mostrar os botões
+      const timeout = setTimeout(() => {
+        setShowButtons(true);
+      }, 3000);
+
+      return () => clearTimeout(timeout); // Limpa o timeout se o componente for desmontado
+    } else {
+      // Se o jogo não estiver no estado de game over, certifique-se de ocultar os botões
+      setShowButtons(false);
+    }
+  }, [gameOver]);
   
 // Efeito para reiniciar o jogo quando o tema é alterado
   useEffect(() => {
     resetGame();
-    setDifficulty(6);
+    setDifficulty(0);
   }, [currentTheme]);
 
  
-
-  
-
 // Efeito para verificar se todas as cartas estão combinadas e definir o fim do jogo
   useEffect(() => {
     if (gameStarted && cards.every((card) => card.isMatched)) {
@@ -63,6 +65,18 @@ export const JogoDaMemoriaProvider = ({ children }) => {
     };
   }, [gameOver]);
 
+
+   // Função para criar cartas embaralhadas com base no tema atual
+   const createShuffledCards = () => {
+    const themeCharacters = getThemeCharacters(currentTheme);
+    const shuffledCharacters = themeCharacters.sort(() => Math.random() - 0.5).slice(0, difficulty);
+    const duplicateCharacters = [...shuffledCharacters, ...shuffledCharacters];
+  
+    return duplicateCharacters.sort(() => Math.random() - 0.5).map((character, index) => {
+      return { character, isRevealed: false, isMatched: false, index };
+    });
+  };
+
   // Função para reiniciar o tabuleiro
   const resetBoard = () => {
     setFlippedCards([]);
@@ -76,7 +90,7 @@ export const JogoDaMemoriaProvider = ({ children }) => {
 
     if (!cards[index].isRevealed && flippedCards.length < 2) {
       setCards((prevCards) => {
-        console.log("click",flippedCards.length)
+        
         const newCards = [...prevCards];
         newCards[index].isRevealed = true;
         return newCards;
@@ -91,7 +105,7 @@ export const JogoDaMemoriaProvider = ({ children }) => {
           const newCards = [...prevCards];
           newCards[firstIndex].isMatched = true;
           newCards[index].isMatched = true;
-          console.log("match",cards[firstIndex].character, cards[index].character)
+          
           return newCards;
         });
         resetBoard();
@@ -102,7 +116,7 @@ export const JogoDaMemoriaProvider = ({ children }) => {
             const newCards = [...prevCards];
             newCards[firstIndex].isRevealed = false;
             newCards[index].isRevealed = false;
-            console.log("not match",cards[firstIndex].character, cards[index].character)
+            
             return newCards;
           });
           resetBoard();
@@ -137,7 +151,8 @@ export const JogoDaMemoriaProvider = ({ children }) => {
     finalTime,
     setGameStarted,
     setDifficulty,
-    difficulty
+    difficulty,
+    showButtons
    
   };
 

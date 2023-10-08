@@ -1,0 +1,34 @@
+.infoContent  {
+
+    font-weight: 600;
+    
+    
+    color: gold;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    width: 60%;
+    margin: 20px auto;
+    padding-left: 20px;
+    
+    
+   
+    
+    
+    
+    
+  }
+
+  .infoContent p span{
+
+    color: #fff;
+  }
+
+  @media(max-width:1000px){
+
+   
+    .infoContent{
+      width: 90%;
+      font-size: 0.8rem;
+    }
+  }
