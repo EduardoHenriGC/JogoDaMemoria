@@ -6,12 +6,11 @@ const JogoDaMemoriaContext = createContext();
 
 export const JogoDaMemoriaProvider = ({ children }) => {
   // Estados do jogo
-  const [currentTheme, setCurrentTheme] = useState(''); // Defina um tema inicial
+  const [currentTheme, setCurrentTheme] = useState(""); // Defina um tema inicial
   const [cards, setCards] = useState([]); // Cartas no jogo
   const [player, setPlayer] = useState(""); //estado para gerenciar o nome do jogador
   const [flippedCards, setFlippedCards] = useState([]); // Cartas viradas
   const [timer, setTimer] = useState(0); // Contagem de tempo
-  const [lockBoard, setLockBoard] = useState(false); // Bloqueio de cliques nas cartas
   const [gameOver, setGameOver] = useState(false); // Sinaliza o fim do jogo
   const [finalTime, setFinalTime] = useState(0); // Tempo final do jogo
   const [gameStarted, setGameStarted] = useState(false);
@@ -55,7 +54,6 @@ export const JogoDaMemoriaProvider = ({ children }) => {
         setTimer((prevTimer) => prevTimer + 1);
       }, 1000);
     }
-
     return () => {
       clearInterval(interval);
     };
@@ -67,19 +65,20 @@ export const JogoDaMemoriaProvider = ({ children }) => {
     const shuffledCharacters = themeCharacters.sort(() => Math.random() - 0.5).slice(0, difficulty);
     const duplicateCharacters = [...shuffledCharacters, ...shuffledCharacters];
     return duplicateCharacters.sort(() => Math.random() - 0.5).map((character, index) => {
-      return { character, isRevealed: false, isMatched: false, index };
+      const cardObject = { character, isRevealed: false, isMatched: false, index };
+      return cardObject;
     });
   };
 
   // Função para reiniciar o tabuleiro
   const resetBoard = () => {
     setFlippedCards([]);
-    setLockBoard(false);
+
   };
 
   // Função para lidar com o clique em uma carta
   const handleCardClick = (index) => {
-    if (lockBoard || cards[index].isRevealed) return;
+    if (cards[index].isRevealed) return;
     if (!cards[index].isRevealed && flippedCards.length < 2) {
       setCards((prevCards) => {
         const newCards = [...prevCards];
@@ -101,7 +100,6 @@ export const JogoDaMemoriaProvider = ({ children }) => {
         });
         resetBoard();
       } else {
-        setLockBoard(true);
         setTimeout(() => {
           setCards((prevCards) => {
             const newCards = [...prevCards];
@@ -120,7 +118,6 @@ export const JogoDaMemoriaProvider = ({ children }) => {
     setCards(createShuffledCards());
     setFlippedCards([]);
     setTimer(0);
-    setLockBoard(false);
     setGameOver(false);
     setFinalTime(0);
 
@@ -129,19 +126,18 @@ export const JogoDaMemoriaProvider = ({ children }) => {
   const contextValue = {
     cards,
     player,
-    setPlayer,
     currentTheme,
-    setCurrentTheme,
     timer,
-    handleCardClick,
-    resetGame,
+    difficulty,
+    showButtons,
     gameOver,
     finalTime,
     setGameStarted,
     setDifficulty,
-    difficulty,
-    showButtons
-
+    handleCardClick,
+    resetGame,
+    setCurrentTheme,
+    setPlayer
   };
 
   // Fornece o contexto aos componentes filhos

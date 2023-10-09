@@ -1,8 +1,8 @@
-export const getImagePath = (isMatched, flipped, character, currentTheme) => {
+export const getImagePath = (flipped, character, currentTheme) => {
 
   let themePrefix = "backonepiece";
 
-  if (isMatched || flipped) {
+  if (flipped) {
     return `/images/${character}.jpg`;
   } else {
     switch (currentTheme) {
