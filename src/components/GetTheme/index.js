@@ -18,7 +18,12 @@ export const getThemeCharacters = (theme) => {
       'abarai',
       'ishida',
       'rangiku',
-      'Shunsui'
+      'Shunsui',
+      'yoruichi',
+      'ulquiora',
+      'ritter',
+      'grimmjow',
+      'nell'
 
 
     ],
