@@ -79,8 +79,7 @@ export const JogoDaMemoriaProvider = ({ children }) => {
 
   // Função para lidar com o clique em uma carta
   const handleCardClick = (index) => {
-    if (lockBoard) return;
-
+    if (lockBoard || cards[index].isRevealed) return;
     if (!cards[index].isRevealed && flippedCards.length < 2) {
       setCards((prevCards) => {
         const newCards = [...prevCards];
