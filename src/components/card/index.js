@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from "@/styles/card/card.module.css";
 import { getImagePath } from '../GetImgPath';
 import { useJogoDaMemoria } from '@/context/JogoDaMemoriaContext';
-import Image from 'next/image';
+
 
 const Card = ({ character, isRevealed, index }) => {
   const { currentTheme, handleCardClick, difficulty } = useJogoDaMemoria();
@@ -14,7 +14,7 @@ const Card = ({ character, isRevealed, index }) => {
 
   return (
     <div className={`${difficulty != 16 ? styles.card : styles.cardHard} ${flipped ? styles.revealcard : ''}`} onClick={() => handleCardClick(index)}>
-      <Image src={getImagePath(flipped, character, currentTheme)} alt={character} width={500} height={500} />
+      <img src={getImagePath(flipped, character, currentTheme)} alt={character} />
     </div>
   );
 }
